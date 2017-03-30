@@ -5,8 +5,6 @@ import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
-import api from '../api/api.js';
-import {token} from '../api/token';
 import request from 'ajax-request';
 
 class App extends React.Component {
@@ -23,22 +21,9 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    request({
-      url: 'https://query.data.world/sql/coreyhermanson/toughest-sport-by-skill',
-      method: 'GET',
-      data: {
-        query: 'SELECT * FROM `Data` LIMIT 100'
-      },
-      headers: {
-        Authorization: 'Bearer ' + token,
-        Accept: 'application/sparql-results+json'
-      }
-    }, function(err, res, body) {
-      if (err) {
-        console.log(err);
-      }
-      return body;
-    });
+	request('/api', function(err, res, body) {
+		console.log(JSON.parse(body))
+	});
   }
 
   render () {

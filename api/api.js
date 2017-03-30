@@ -1,7 +1,7 @@
 var token = require('./token');
 var request = require('ajax-request');
 
-module.exports = function () {
+module.exports = function (req, res, next) {
   request({
     url: 'https://query.data.world/sql/coreyhermanson/toughest-sport-by-skill',
     method: 'GET',
@@ -9,13 +9,16 @@ module.exports = function () {
       query: 'SELECT * FROM `Data` LIMIT 100'
     },
     headers: {
-      Authorization: 'Bearer ' + token,
+      Authorization: 'Bearer ' + token.token,
       Accept: 'application/sparql-results+json'
     }
-  }, function(err, res, body) {
+  }, function(err, resp, body) {
     if (err) {
       console.log(err);
     }
-    return body;
+    if(body) {
+      res.locals.apiData = body;
+    }
+    return next();
   });
 }
