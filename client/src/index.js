@@ -27,9 +27,12 @@ class App extends React.Component {
   componentDidMount() {
 	request('/api', function(err, res, body) {
 		var results = JSON.parse(body);
+		var sports = results.results.bindings.map((result) => {
+			return result.v_0.value
+		});
 		this.setState({
 			color: this.state.color,
-			results: get(results.results.bindings[0].v_0, 'value')
+			results: sports
 		})
 	}.bind(this));
   }
@@ -43,6 +46,7 @@ class App extends React.Component {
   }
 
   render () {
+	const { results } = this.state;
     return (
       <Scene>
         <a-assets>
@@ -55,15 +59,14 @@ class App extends React.Component {
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
-		{this.state.results ? (
-			<Entity text={{value: this.state.results}}
-				position={{x: 0, y: 2, z: -1}}
-			/>
-		) : (
-			<Entity text={{value: "hi"}}
-				position={{x: 0, y: 2, z: -1}}
-			/>
-		)}
+		{results && results.map(function (result, i) {
+				return (
+					<Entity text={{value: result}}
+						position={{x: i, y: 2, z: -1}}
+					/>
+				)
+		})}
+
 
         <Entity id="box"
           geometry={{primitive: 'box'}}
