@@ -6,11 +6,15 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import request from 'ajax-request';
+import get from 'lodash.get';
 
 class App extends React.Component {
   constructor(props) {
     super(props);
-    this.state = {color: 'red'};
+    this.state = {
+		color: 'red',
+		results: ''
+	 };
   }
 
   changeColor() {
@@ -22,8 +26,20 @@ class App extends React.Component {
 
   componentDidMount() {
 	request('/api', function(err, res, body) {
-		console.log(JSON.parse(body))
-	});
+		var results = JSON.parse(body);
+		this.setState({
+			color: this.state.color,
+			results: get(results.results.bindings[0].v_0, 'value')
+		})
+	}.bind(this));
+  }
+
+  shouldComponentUpdate(nextState) {
+	  if (nextState.results !== this.state.results) {
+		  return true;
+	  } else {
+		  return false;
+	  }
   }
 
   render () {
@@ -39,7 +55,15 @@ class App extends React.Component {
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
-        <Entity text={{value: 'Hello, A-Frame React!', align: 'center'}} position={{x: 0, y: 2, z: -1}}/>
+		{this.state.results ? (
+			<Entity text={{value: this.state.results}}
+				position={{x: 0, y: 2, z: -1}}
+			/>
+		) : (
+			<Entity text={{value: "hi"}}
+				position={{x: 0, y: 2, z: -1}}
+			/>
+		)}
 
         <Entity id="box"
           geometry={{primitive: 'box'}}

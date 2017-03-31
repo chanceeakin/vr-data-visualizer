@@ -16,6 +16,7 @@ app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
 app.get('/api', api, function(req, res, next) {
+  res.locals.apiData = JSON.parse(res.locals.apiData);
   res.status(200).json(res.locals.apiData)
 })
 
