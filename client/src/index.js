@@ -12,17 +12,10 @@ class App extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-		color: 'red',
-		results: ''
+		tweets: ''
 	 };
   }
 
-  changeColor() {
-    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
-    this.setState({
-      color: colors[Math.floor(Math.random() * colors.length)]
-    });
-  }
 
   componentDidMount() {
 	request('/api/twitter/prattprattpratt', function(err, res, body) {
@@ -31,14 +24,13 @@ class App extends React.Component {
       return tweet.text
     });
 		this.setState({
-			color: this.state.color,
 			tweets: tweets
 		})
 	}.bind(this));
   }
 
   shouldComponentUpdate(nextState) {
-	  if (nextState.results !== this.state.results) {
+	  if (nextState.tweets !== this.state.tweets) {
 		  return true;
 	  } else {
 		  return false;
@@ -47,7 +39,6 @@ class App extends React.Component {
 
   render () {
 	const { tweets } = this.state;
-  console.log(tweets);
     return (
       <Scene>
         <a-assets>
@@ -60,26 +51,15 @@ class App extends React.Component {
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
-		{tweets && tweets.map(function (tweet, i) {
-				return (
-					<Entity key={i} text={{value: tweet, wrapCount: '30', align: 'center'}}
-						position={{x: i-5, y: 1.5, z: -1}}
-					/>
-				)
-		})}
-
-
-        <Entity id="box"
-          geometry={{primitive: 'box'}}
-          material={{color: this.state.color, opacity: 0.6}}
-          animation__rotate={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
-          animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          position={{x: 0, y: 4, z: -3}}
-          events={{click: this.changeColor.bind(this)}}>
-          <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
-                  geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
-                  material={{color: '#24CAFF'}}/>
-        </Entity>
+        {tweets && tweets.map(function (tweet, i) {
+				  return (
+					  <Entity
+              key={i}
+              text={{value: tweet, wrapCount: '30', align: 'center'}}
+						  position={{x: i-5, y: 1.5, z: -1}}
+					  />
+				  )
+		    })}
 
         <Entity primitive="a-camera">
           <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
