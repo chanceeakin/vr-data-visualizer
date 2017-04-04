@@ -7,7 +7,7 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "start": "concurrently \"npm run server\" \"npm run client\"",
     "server": "node index.js",
-    "client": "node start-client.js"
+    "client": "node client/server.js"
   },
   "author": "Chance Eakin",
   "license": "ISC",
