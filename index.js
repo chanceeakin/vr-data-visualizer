@@ -9,7 +9,7 @@ const app = express();
 const api = require('./api/api.js');
 const apiTwitter = require('./api/api-twitter.js');
 
-app.set('port', process.env.PORT || 3001);
+app.set('port', 3001);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
