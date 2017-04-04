@@ -61,8 +61,8 @@ class App extends React.Component {
         <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
 		{results && results.map(function (result, i) {
 				return (
-					<Entity text={{value: result}}
-						position={{x: i, y: 2, z: -1}}
+					<Entity text={{value: result, wrapCount: '20', align: 'center'}}
+						position={{x: i-30, y: 1.5, z: -1}}
 					/>
 				)
 		})}
@@ -73,7 +73,7 @@ class App extends React.Component {
           material={{color: this.state.color, opacity: 0.6}}
           animation__rotate={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
           animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
-          position={{x: 0, y: 1, z: -3}}
+          position={{x: 0, y: 4, z: -3}}
           events={{click: this.changeColor.bind(this)}}>
           <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
                   geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
