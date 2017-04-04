@@ -9,7 +9,7 @@ module.exports = function (req, res, next) {
       query: 'SELECT * FROM `Data` LIMIT 100'
     },
     headers: {
-      Authorization: 'Bearer ' + token.token,
+      Authorization: 'Bearer ' + token.dataWorldToken,
       Accept: 'application/sparql-results+json'
     }
   }, function(err, resp, body) {

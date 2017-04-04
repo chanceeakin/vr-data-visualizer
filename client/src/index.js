@@ -25,14 +25,14 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-	request('/api', function(err, res, body) {
-		var results = JSON.parse(body);
-		var sports = results.results.bindings.map((result) => {
-			return result.v_0.value
-		});
+	request('/api/twitter/prattprattpratt', function(err, res, body) {
+    var tweets = JSON.parse(body);
+    tweets = tweets.map((tweet) => {
+      return tweet.text
+    });
 		this.setState({
 			color: this.state.color,
-			results: sports
+			tweets: tweets
 		})
 	}.bind(this));
   }
@@ -46,7 +46,8 @@ class App extends React.Component {
   }
 
   render () {
-	const { results } = this.state;
+	const { tweets } = this.state;
+  console.log(tweets);
     return (
       <Scene>
         <a-assets>
@@ -59,10 +60,10 @@ class App extends React.Component {
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
         <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
-		{results && results.map(function (result, i) {
+		{tweets && tweets.map(function (tweet, i) {
 				return (
-					<Entity text={{value: result, wrapCount: '20', align: 'center'}}
-						position={{x: i-30, y: 1.5, z: -1}}
+					<Entity key={i} text={{value: tweet, wrapCount: '30', align: 'center'}}
+						position={{x: i-5, y: 1.5, z: -1}}
 					/>
 				)
 		})}
