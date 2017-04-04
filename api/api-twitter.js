@@ -9,6 +9,7 @@ var client = new Twitter({
 });
 
 module.exports = function (req, res, next) {
+  console.log('hit');
   var params = {
     screen_name: req.params.name,
     count: 10
