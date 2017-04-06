@@ -9,7 +9,7 @@ const app = express();
 const api = require('./api/api.js');
 const apiTwitter = require('./api/api-twitter.js');
 
-app.set('port', 3001);
+app.set('port', process.env.PORT || 3001);
 app.use(logger('dev'));
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
@@ -22,7 +22,6 @@ app.get('/api/data-world/', api, function(req, res, next) {
 })
 
 app.get('/api/twitter/:name', apiTwitter, function(req, res, next) {
-  console.log('hey');
   if(!res.locals.twitterData) {
     res.status(404).json({
       message: 'No Data found'
