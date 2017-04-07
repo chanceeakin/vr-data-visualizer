@@ -11,9 +11,13 @@ import get from 'lodash.get';
 class App extends React.Component {
   constructor(props) {
     super(props);
+
     this.state = {
 		tweets: ''
 	 };
+
+   this._handleClick = this._handleClick.bind(this);
+   this._handleCollide = this._handleCollide.bind(this);
   }
 
 
@@ -35,6 +39,16 @@ class App extends React.Component {
 	  } else {
 		  return false;
 	  }
+  }
+
+  _handleClick (e) {
+    console.log('fuck yea');
+    console.log(e);
+  }
+
+  _handleCollide (e) {
+    console.log('collide!');
+    console.log(e);
   }
 
   render () {
@@ -62,7 +76,14 @@ class App extends React.Component {
 		    })}
 
         <Entity primitive="a-camera">
-          <Entity primitive="a-cursor" animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
+          <Entity
+            primitive="a-cursor"
+            color="white"
+            events={{
+              click: this._handleClick,
+              collided: [this._handleCollide]
+            }}
+            animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
         </Entity>
       </Scene>
     );
