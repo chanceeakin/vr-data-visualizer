@@ -6,19 +6,18 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import request from 'ajax-request';
-import get from 'lodash.get';
+import Tweet from './js/components/Tweet.js';
 
 class App extends React.Component {
-  constructor(props) {
-    super(props);
+	constructor(props) {
+		super(props);
 
-    this.state = {
-		tweets: ''
-	 };
-
-   this._handleClick = this._handleClick.bind(this);
-   this._handleCollide = this._handleCollide.bind(this);
-  }
+		this.state = {
+			tweets: '',
+			color: 'red'
+		};
+		this._handleClick = this._handleClick.bind(this);
+	}
 
 
   componentDidMount() {
@@ -34,25 +33,29 @@ class App extends React.Component {
   }
 
   shouldComponentUpdate(nextState) {
-	  if (nextState.tweets !== this.state.tweets) {
+	  if (nextState.tweets !== this.state.tweets || nextState.color !== this.state.color) {
 		  return true;
 	  } else {
 		  return false;
 	  }
   }
 
-  _handleClick (e) {
-    console.log('fuck yea');
-    console.log(e);
-  }
+  changeColor() {
+	  const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+	  this.setState({
+		  color: colors[Math.floor(Math.random() * colors.length)]
+	  });
+	}
 
-  _handleCollide (e) {
-    console.log('collide!');
-    console.log(e);
+  _handleClick (e) {
+    const colors = ['red', 'orange', 'yellow', 'green', 'blue'];
+	  this.setState({
+		  color: colors[Math.floor(Math.random() * colors.length)]
+	  });
   }
 
   render () {
-	const { tweets } = this.state;
+	const { color, tweetsFound, tweets } = this.state;
     return (
       <Scene>
         <a-assets>
@@ -64,24 +67,39 @@ class App extends React.Component {
         <Entity primitive="a-light" type="ambient" color="#445451"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>
-        <Entity particle-system={{preset: 'snow', particleCount: 2000}}/>
+        <Entity particle-system={{preset: 'snow', particleCount: 1000}}/>
         {tweets && tweets.map(function (tweet, i) {
 				  return (
-					  <Entity
-              key={i}
-              text={{value: tweet, wrapCount: '30', align: 'center'}}
-						  position={{x: i-5, y: 1.5, z: -1}}
-					  />
+            <Tweet
+             key={i}
+             text={tweet}
+             posX={(i-5)*2}
+             posY={1.5}
+             posZ={-1}
+             click={(e) => this._handleClick}
+             color={color}
+           />
 				  )
 		    })}
+
+        <Entity id="box"
+          geometry={{primitive: 'box'}}
+          material={{color: this.state.color, opacity: 0.6}}
+          animation__rotate={{property: 'rotation', dur: 2000, loop: true, to: '360 360 360'}}
+          animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '1.1 1.1 1.1'}}
+          position={{x: 0, y: 1, z: -3}}
+          events={{click: this.changeColor.bind(this)}}>
+          <Entity animation__scale={{property: 'scale', dir: 'alternate', dur: 100, loop: true, to: '2 2 2'}}
+                  geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
+                  material={{color: '#24CAFF'}}/>
+        </Entity>
 
         <Entity primitive="a-camera">
           <Entity
             primitive="a-cursor"
             color="white"
             events={{
-              click: this._handleClick,
-              collided: [this._handleCollide]
+              click: this._handleClick
             }}
             animation__click={{property: 'scale', startEvents: 'click', from: '0.1 0.1 0.1', to: '1 1 1', dur: 150}}/>
         </Entity>

@@ -6,6 +6,7 @@ return 10 tweets
 render tweets
 
 ## To Do
-Take input from user for username
+Create basic webform with a button that leads the user to twitter.
+	Take input from user for username.
 make the rendering more fun. (curved)
 Do something better with the environment.
