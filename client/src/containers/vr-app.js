@@ -20,7 +20,8 @@ export default class App extends React.Component {
 
 
   componentDidMount() {
-	request('/api/twitter/prattprattpratt', function(err, res, body) {
+  var twitterHandle = this.props.params.twitterHandle || 'prattprattpratt';
+	request('/api/twitter/' + twitterHandle, function(err, res, body) {
     var tweets = JSON.parse(body);
     tweets = tweets.map((tweet) => {
       return tweet.text

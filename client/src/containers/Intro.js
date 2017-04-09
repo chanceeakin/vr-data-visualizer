@@ -5,6 +5,7 @@ import { FormGroup,
   HelpBlock
 } from 'react-bootstrap';
 
+
 export default class Intro extends React.Component {
   constructor(props) {
     super(props);
@@ -13,6 +14,7 @@ export default class Intro extends React.Component {
     }
     this.getValidationState = this.getValidationState.bind(this);
     this.handleChange = this.handleChange.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   getValidationState() {
@@ -23,7 +25,13 @@ export default class Intro extends React.Component {
   }
 
   handleChange(e) {
-    this.setState({ value: e.target.value });
+    this.setState({
+      value: e.target.value
+    });
+  }
+
+  handleClick(e) {
+    window.location = '/vr/' + this.state.value;
   }
 
   render() {
@@ -42,6 +50,7 @@ export default class Intro extends React.Component {
           />
           <FormControl.Feedback />
           <HelpBlock>Validation is based on string length.</HelpBlock>
+          <button type="button" onClick={this.handleClick}>Login</button>
         </FormGroup>
       </form>
     );
