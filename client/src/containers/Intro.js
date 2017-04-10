@@ -1,10 +1,10 @@
 import React from 'react';
-import { FormGroup,
-	FormControl,
-	ControlLabel,
-  HelpBlock
-} from 'react-bootstrap';
 
+import Header from '../components/intro/header.js';
+import Body from '../components/intro/body.js';
+import InputForm from '../components/intro/form.js';
+import Footer from '../components/intro/footer.js';
+import '../styles/intro.css';
 
 export default class Intro extends React.Component {
   constructor(props) {
@@ -17,10 +17,9 @@ export default class Intro extends React.Component {
     this.handleClick = this.handleClick.bind(this);
   }
 
-  getValidationState() {
+  getValidationState(e) {
     const length = this.state.value.length;
-    if (length > 10) return 'success';
-    else if (length > 5) return 'warning';
+    if (length > 1) return 'success';
     else if (length > 0) return 'error';
   }
 
@@ -36,23 +35,16 @@ export default class Intro extends React.Component {
 
   render() {
     return (
-      <form>
-        <FormGroup
-          controlId="formBasicText"
-          validationState={this.getValidationState()}
-        >
-          <ControlLabel>Working example with validation</ControlLabel>
-          <FormControl
-            type="text"
-            value={this.state.value}
-            placeholder="Enter text"
-            onChange={this.handleChange}
-          />
-          <FormControl.Feedback />
-          <HelpBlock>Validation is based on string length.</HelpBlock>
-          <button type="button" onClick={this.handleClick}>Login</button>
-        </FormGroup>
-      </form>
+      <div>
+        <Header />
+        <Body />
+        <InputForm
+          handleClick={this.handleClick}
+          handleChange={this.handleChange}
+          getValidationState={this.getValidationState}
+        />
+        <Footer />
+      </div>
     );
   }
 }
