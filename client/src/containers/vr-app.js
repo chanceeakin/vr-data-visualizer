@@ -6,6 +6,7 @@ import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import request from 'ajax-request';
 import Tweet from '../components/Tweet.js';
+import globe from '../img/globe.png';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -60,14 +61,17 @@ export default class App extends React.Component {
     return (
       <Scene>
         <a-assets>
+          <img id="groundTexture" src="https://cdn.aframe.io/a-painter/images/floor.jpg"/>
+          <img id="skyTexture" src={globe}/>
         </a-assets>
 
         <Entity primitive="a-light" type="ambient" color="#445451"/>
+        <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" color="black" width="2048"/>
         <Entity particle-system={{preset: 'dust', particleCount: 1000}}/>
         <Tweet
-          text={'@' + twitterHandle + "'s Tweets'"}
+          text={'@' + twitterHandle + "\'s Tweets"}
           color={'cyan'}
           width={3}
           posX={0}
@@ -135,3 +139,4 @@ export default class App extends React.Component {
 //           geometry={{primitive: 'box', depth: 0.2, height: 0.2, width: 0.2}}
 //           material={{color: '#24CAFF'}}/>
 // </Entity>
+//{//<Entity primitive="a-sky" height="2048" radius="30" src="#skyTexture" theta-length="90" width="2048"/>}
