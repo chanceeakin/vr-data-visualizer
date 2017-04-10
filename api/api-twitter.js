@@ -11,7 +11,7 @@ var client = new Twitter({
 module.exports = function (req, res, next) {
   var params = {
     screen_name: req.params.name,
-    count: 10
+    count: 4
   };
   client.get('statuses/user_timeline', params, function(error, tweets, response) {
     if (error) {

@@ -5,9 +5,10 @@ export default props => (
   <Entity
     text={{value: props.text, wrapCount: '30', align: 'center'}}
     events={{click: props.clickEvent}}
-    geometry="primitive: plane; width: 1.4; height: 1"
+    geometry={{primitive: 'plane', width: props.width, height: 1}}
     material={{color: props.color, opacity: 0.3}}
     position={{x: props.posX, y: props.posY, z: props.posZ}}
+	  rotation={{x: props.rotX, y: props.rotY, z: props.rotZ}}
     events={{
       click: props.click
     }}
