@@ -1,0 +1,10 @@
+.navbar {
+	margin-bottom: 50px;
+}
+
+.my-jumbo {
+	min-height: 50vh;
+	background-image: url('../../public/img/introBG.jpg');
+	color: white;
+	border-radius: 4px;
+}

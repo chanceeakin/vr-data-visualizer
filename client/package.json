@@ -1,0 +1,55 @@
+{
+  "name": "aframe-react-boilerplate",
+  "version": "3.0.1",
+  "description": "Boilerplate for building virtual reality experiences with A-Frame and React.",
+  "proxy": "http://localhost:3001/",
+  "dependencies": {
+    "aframe": "^0.5.0",
+    "aframe-animation-component": "^3.2.5",
+    "aframe-extras.grid": "^3.7.0",
+    "aframe-gridhelper-component": "^0.2.0",
+    "aframe-particle-system-component": "^1.0.8",
+    "aframe-react": "^4.0.x",
+    "ajax-request": "^1.2.1",
+    "axios": "^0.16.1",
+    "babel-polyfill": "^6.3.14",
+    "isomorphic-fetch": "^2.2.1",
+    "react": "^15.4.1",
+    "react-bootstrap": "^0.30.8",
+    "react-dom": "^15.5.3",
+    "react-router": "^3.0.3",
+    "react-scripts": "0.9.5",
+    "sparql-http-client": "^1.0.2"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test --env=jsdom",
+    "eject": "react-scripts eject",
+    "publish": "npm run build && gh-pages -d build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ngokevin/aframe-react-boilerplate.git"
+  },
+  "keywords": [
+    "aframe",
+    "react",
+    "vr",
+    "boilerplate",
+    "a-frame",
+    "mozvr",
+    "reactvr",
+    "aframe-react",
+    "webvr"
+  ],
+  "author": "Kevin Ngo <kngo@mozilla.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/ngokevin/aframe-react-boilerplate/issues"
+  },
+  "homepage": "vr.mrhessclass.info",
+  "devDependencies": {
+    "gh-pages": "^0.12.0"
+  }
+}
