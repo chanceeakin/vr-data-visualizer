@@ -1,12 +1,14 @@
 import 'aframe';
 import 'aframe-animation-component';
 import 'aframe-particle-system-component';
+import 'aframe-gridhelper-component';
 import 'babel-polyfill';
 import {Entity, Scene} from 'aframe-react';
 import React from 'react';
 import request from 'ajax-request';
 import Tweet from '../components/Tweet.js';
 import globe from '../img/globe.png';
+import tron from '../../public/audio/TronLegacyTheGrid.mp3';
 
 export default class App extends React.Component {
 	constructor(props) {
@@ -66,10 +68,13 @@ export default class App extends React.Component {
         </a-assets>
 
         <Entity primitive="a-light" type="ambient" color="#445451"/>
-        <Entity primitive="a-plane" src="#groundTexture" rotation="-90 0 0" height="100" width="100"/>
+        <Entity
+          gridhelper={{size: 100, divisions: 100, colorCenterLine: "rgb(90, 229, 252)", colorGrid: "rgb(90, 229, 252)"}}
+          />
         <Entity primitive="a-light" type="point" intensity="2" position="2 4 4"/>
         <Entity primitive="a-sky" height="2048" color="black" width="2048"/>
         <Entity particle-system={{preset: 'dust', particleCount: 1000}}/>
+        <Entity sound={{src: tron, autoplay: true}} />
         <Tweet
           text={'@' + twitterHandle + "\'s Tweets"}
           color={'cyan'}
@@ -113,8 +118,7 @@ export default class App extends React.Component {
            color={color}
            />
      )}
-
-        <Entity primitive="a-camera" position={'0 1.6 2'}>
+     <Entity primitive="a-camera" position={'0 1.6 2'}>
           <Entity
             primitive="a-cursor"
             color="white"
