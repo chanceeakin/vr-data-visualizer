@@ -16,10 +16,10 @@ app.use(bodyParser.json());
 app.use(bodyParser.text());
 app.use(bodyParser.json({ type: 'application/vnd.api+json' }));
 
-app.use(express.static(path.join(__dirname, './build')));
+app.use(express.static(path.join(__dirname, './client', 'build')));
 
 app.get('/', function (req, res) {
-  res.sendFile(path.join(__dirname, './build', 'index.html'));
+  res.sendFile(path.join(__dirname, './client', 'build', 'index.html'));
 });
 
 app.get('/api/data-world/', api, function(req, res, next) {
