@@ -1,12 +1,5 @@
-# Data.World Visualizer
+# A Frame Data visualizer
 
-## Done List
-Add twitter API
-return 10 tweets
-render tweets
+Takes twitter data, and renders it in a VR experience. Built for my own learning.
 
-## To Do
-Create basic webform with a button that leads the user to twitter.
-	Take input from user for username.
-make the rendering more fun. (curved)
-Do something better with the environment.
+Used Kevin Ngo's most excellent aframe-react-boilerplate.
